@@ -115,50 +115,48 @@ html, body {
   right: 0%;
 }
 
-  .footer {
-    max-width: 100dvw;
-    padding: 3dvh 2dvw 2dvh;
-    color: #00ff99;
-    font-family: 'VT323', monospace;
-    font-size: clamp(1rem, 1.4dvw, 2rem);
-    text-align: center;
-    border-top: 1px solid rgba(0,255,153,0.2);
-    margin-top: 5dvh;
-    opacity: 0.8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.4ch;
-    user-select: none;
-  }
+.footer {
+  max-width: 100dvw;
+  padding: 3dvh 2dvw 2dvh;
+  color: #00ff99;
+  font-family: 'VT323', monospace;
+  font-size: clamp(1rem, 1.4dvw, 2rem);
+  text-align: center;
+  border-top: 1px solid rgba(0,255,153,0.2);
+  margin-top: 5dvh;
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4ch;
+  user-select: none;
+}
 
-  .footer-cursor {
-    display: inline-block;
-    width: 1ch;
-    animation: blink-cursor 0.8s steps(1) infinite;
-  }
+.footer-cursor {
+  display: inline-block;
+  width: 1ch;
+  animation: blink-cursor 0.8s steps(1) infinite;
+}
 
-  .menu-btn {
-  padding: 1.2dvh 3dvw;
+.menu-btn {
+  padding: 3dvh 5dvw;
   border-bottom-left-radius: 3dvw;
   border-bottom-right-radius: 3dvw;
   background-color: transparent;
   color:#00FF99;
   box-shadow: 0 0 8px #00FF99, 0 0 20px #00FF9930;
-  
 }
 
 .menu-switcher {
   display: flex;
   justify-content: center;
-  gap: 3dvw; /* <-- ini jarak antar tombol */
+  gap: 3dvw;
   margin-bottom: 2dvh;
 }
 
-/* Container utama room */
 .room-container {
   display: flex;
-  flex-direction: column; /* ← default arah dari atas ke bawah */
+  flex-direction: column;
   gap: 2dvh;
   align-items: center;
   width: 100%;
@@ -166,8 +164,6 @@ html, body {
   margin: 0 auto;
 }
 
-
-/* List komentar (bubble area) */
 .comment-list {
   display: flex;
   flex-direction: column;
@@ -183,7 +179,6 @@ html, body {
   border-radius: 1.5dvw;
 }
 
-/* Bubble chat */
 .comment-item {
   background: transparent;
   padding: 1dvh 1.2dvw;
@@ -193,7 +188,6 @@ html, body {
   position: relative;
 }
 
-/* Nama pengirim */
 .comment-name {
   display: block;
   font-weight: bold;
@@ -201,7 +195,6 @@ html, body {
   margin-bottom: 0.4dvh;
 }
 
-/* Form input */
 .comment-form {
   display: flex;
   justify-content: center;
@@ -261,10 +254,44 @@ html, body {
 }
 
 @media (max-width: 768px) {
+  html, body {
+    font-size: 14px;
+  }
+
+  .hero-section {
+    padding-top: 5dvh;
+    padding-bottom: 5dvh;
+    padding-left: 3dvw;
+    padding-right: 3dvw;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+  }
+
+  .hero-slogan {
+    font-size: clamp(1rem, 4.5vw, 2rem);
+    min-height: 2em;
+  }
+
+  .button-container {
+    margin-top: 4dvh;
+  }
+
+  .link-button {
+    font-size: clamp(1rem, 3.8vw, 1.4rem);
+    padding: 1.5dvh 0;
+  }
+
+  .footer {
+    font-size: 1rem;
+    padding: 2dvh 1dvw 1.5dvh;
+  }
+
   .menu-btn {
-    padding: 1.2dvh 6dvw;
-    border-bottom-left-radius: 5dvw;
-    border-bottom-right-radius: 5dvw;
+    padding: 1.2dvh 4dvw;
+    border-bottom-left-radius: 4dvw;
+    border-bottom-right-radius: 4dvw;
     font-size: 1.2rem;
   }
 

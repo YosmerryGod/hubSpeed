@@ -35,51 +35,57 @@ export async function renderHero() {
   buttonContainer.className = "button-container";
   buttonContainer.style.width = getResponsiveWidth();
 
-  links.forEach(({ label, url }) => {
-    const btn = document.createElement("a");
-    btn.href = url;
-    btn.target = "_blank";
-    btn.className = "link-button";
+ links.forEach(({ label, url }) => {
+  const btn = document.createElement("a");
+  btn.href = url;
+  btn.target = "_blank";
+  btn.className = "link-button";
 
-    const span = document.createElement("span");
-    span.className = "btn-text";
-    span.dataset.label = label;
-    span.textContent = label;
+  const span = document.createElement("span");
+  span.className = "btn-text";
+  span.dataset.label = label;
+  span.textContent = label;
 
-    btn.appendChild(span);
-    buttonContainer.appendChild(btn);
+  btn.appendChild(span);
+  buttonContainer.appendChild(btn);
 
-    const activateEffect = () => {
-      if (btn.classList.contains("hover")) return;
-      const fullText = `>> ${span.dataset.label}`;
-      let i = 0;
-      const cursor = document.createElement("span");
-      cursor.className = "cursor";
-      cursor.textContent = "▍";
-      btn.appendChild(cursor);
-      function type() {
-        if (i <= fullText.length) {
-          span.textContent = fullText.substring(0, i);
-          i++;
-          setTimeout(type, 25);
-        }
+  let typingTimeout; // untuk simpan ID setTimeout
+
+  const activateEffect = () => {
+    if (btn.classList.contains("hover")) return;
+    const fullText = `>> ${span.dataset.label}`;
+    let i = 0;
+
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    cursor.textContent = "▍";
+    btn.appendChild(cursor);
+
+    function type() {
+      if (i <= fullText.length) {
+        span.textContent = fullText.substring(0, i);
+        i++;
+        typingTimeout = setTimeout(type, 25);
       }
-      type();
-      btn.classList.add("hover");
-    };
+    }
 
-    const resetEffect = () => {
-      span.textContent = span.dataset.label;
-      const cursor = btn.querySelector(".cursor");
-      if (cursor) cursor.remove();
-      btn.classList.remove("hover");
-    };
+    type();
+    btn.classList.add("hover");
+  };
 
-    btn.addEventListener("pointerenter", activateEffect);
-    btn.addEventListener("pointerleave", resetEffect);
-    btn.addEventListener("touchstart", activateEffect);
-    btn.addEventListener("touchend", resetEffect);
-  });
+  const resetEffect = () => {
+    clearTimeout(typingTimeout); // hentikan typing
+    span.textContent = span.dataset.label;
+    const cursor = btn.querySelector(".cursor");
+    if (cursor) cursor.remove();
+    btn.classList.remove("hover");
+  };
+
+  btn.addEventListener("pointerenter", activateEffect);
+  btn.addEventListener("pointerleave", resetEffect);
+  btn.addEventListener("touchstart", activateEffect);
+  btn.addEventListener("touchend", resetEffect);
+});
 
   const switcher = document.createElement("div");
   switcher.className = "menu-switcher";
