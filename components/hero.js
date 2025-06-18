@@ -1,3 +1,5 @@
+import { handleMSG1 } from '../func/handleExample.js'; // Pastikan path file sesuai
+
 function getResponsiveWidth() {
   return window.innerWidth < 700 ? "50dvw" : "35dvw";
 }
@@ -22,8 +24,8 @@ export async function renderHero() {
   slogan.className = "hero-slogan";
 
   const links = [
-    { label: "Website", url: "https://speedshell.fun" },
-    { label: "Whitepaper", url: "https://pdf.speedshell.fun" },
+    { label: "Website", url: "https://speedshell.xyz" },
+    { label: "Whitepaper", url: "https://pdf.speedshell.xyz" },
     { label: "Telegram Group", url: "https://t.me/speedshell" },
     { label: "Twitter", url: "https://twitter.com/speed_BSC" },
     { label: "TikTok", url: "https://tiktok.com/@speedBSC" },
@@ -35,67 +37,67 @@ export async function renderHero() {
   buttonContainer.className = "button-container";
   buttonContainer.style.width = getResponsiveWidth();
 
- links.forEach(({ label, url }) => {
-  const btn = document.createElement("a");
-  btn.href = url;
-  btn.target = "_blank";
-  btn.className = "link-button";
+  links.forEach(({ label, url }) => {
+    const btn = document.createElement("a");
+    btn.href = url;
+    btn.target = "_blank";
+    btn.className = "link-button";
 
-  const span = document.createElement("span");
-  span.className = "btn-text";
-  span.dataset.label = label;
-  span.textContent = label;
+    const span = document.createElement("span");
+    span.className = "btn-text";
+    span.dataset.label = label;
+    span.textContent = label;
 
-  btn.appendChild(span);
-  buttonContainer.appendChild(btn);
+    btn.appendChild(span);
+    buttonContainer.appendChild(btn);
 
-  let typingTimeout; // untuk simpan ID setTimeout
+    let typingTimeout; // untuk simpan ID setTimeout
 
-  const activateEffect = () => {
-    if (btn.classList.contains("hover")) return;
-    const fullText = `>> ${span.dataset.label}`;
-    let i = 0;
+    const activateEffect = () => {
+      if (btn.classList.contains("hover")) return;
+      const fullText = `>> ${span.dataset.label}`;
+      let i = 0;
 
-    const cursor = document.createElement("span");
-    cursor.className = "cursor";
-    cursor.textContent = "▍";
-    btn.appendChild(cursor);
+      const cursor = document.createElement("span");
+      cursor.className = "cursor";
+      cursor.textContent = "▍";
+      btn.appendChild(cursor);
 
-    function type() {
-      if (i <= fullText.length) {
-        span.textContent = fullText.substring(0, i);
-        i++;
-        typingTimeout = setTimeout(type, 25);
+      function type() {
+        if (i <= fullText.length) {
+          span.textContent = fullText.substring(0, i);
+          i++;
+          typingTimeout = setTimeout(type, 25);
+        }
       }
-    }
 
-    type();
-    btn.classList.add("hover");
-  };
+      type();
+      btn.classList.add("hover");
+    };
 
-  const resetEffect = () => {
-    clearTimeout(typingTimeout); // hentikan typing
-    span.textContent = span.dataset.label;
-    const cursor = btn.querySelector(".cursor");
-    if (cursor) cursor.remove();
-    btn.classList.remove("hover");
-  };
+    const resetEffect = () => {
+      clearTimeout(typingTimeout); // hentikan typing
+      span.textContent = span.dataset.label;
+      const cursor = btn.querySelector(".cursor");
+      if (cursor) cursor.remove();
+      btn.classList.remove("hover");
+    };
 
-  btn.addEventListener("pointerenter", activateEffect);
-  btn.addEventListener("pointerleave", resetEffect);
-  btn.addEventListener("touchstart", activateEffect);
-  btn.addEventListener("touchend", resetEffect);
-});
+    btn.addEventListener("pointerenter", activateEffect);
+    btn.addEventListener("pointerleave", resetEffect);
+    btn.addEventListener("touchstart", activateEffect);
+    btn.addEventListener("touchend", resetEffect);
+  });
 
   const switcher = document.createElement("div");
   switcher.className = "menu-switcher";
 
   const profileBtn = document.createElement("button");
-  profileBtn.textContent = "Profile";
+  profileBtn.textContent = "> ./Profile";
   profileBtn.className = "menu-btn active";
 
   const roomBtn = document.createElement("button");
-  roomBtn.textContent = "Room";
+  roomBtn.textContent = "> ./Mini-Speed-Bro";
   roomBtn.className = "menu-btn";
 
   switcher.appendChild(profileBtn);
@@ -109,35 +111,36 @@ export async function renderHero() {
   commentList.className = "comment-list";
 
   const form = document.createElement("form");
-form.className = "comment-form";
+  form.className = "comment-form";
 
-const bubble = document.createElement("div");
-bubble.className = "comment-form-bubble";
+  const bubble = document.createElement("div");
+  bubble.className = "comment-form-bubble";
 
-const nameInput = document.createElement("input");
-nameInput.placeholder = "Your name";
-nameInput.required = true;
+  const nameInput = document.createElement("input");
+  nameInput.placeholder = "Your name";
+  nameInput.required = false;
 
-const messageInput = document.createElement("textarea");
-messageInput.placeholder = "Leave a message...";
-messageInput.rows = 1;
-messageInput.required = true;
+  const messageInput = document.createElement("textarea");
+  messageInput.placeholder = "Leave a message...";
+  messageInput.rows = 1;
+  messageInput.required = true;
 
-const sendBtn = document.createElement("button");
-sendBtn.title = "Send";
-sendBtn.textContent = "➤";
+  const sendBtn = document.createElement("button");
+  sendBtn.title = "Send";
+  sendBtn.textContent = "➤";
 
-bubble.appendChild(messageInput);
-bubble.appendChild(sendBtn);
-form.appendChild(bubble);
+  bubble.appendChild(messageInput);
+  bubble.appendChild(sendBtn);
+  form.appendChild(bubble);
 
-
- form.addEventListener("submit", (e) => {
+  // ============ HANDLE COMMENT ================
+  form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const msg = messageInput.value.trim();
   const randomNum = Math.floor(Math.random() * 1000);
-  const name = `anon-${randomNum}`;
+  const name = nameInput.value.trim() || `anon-${randomNum}`;
   if (msg) {
+    // 1. Pesan user masuk PALING BAWAH
     const item = document.createElement("div");
     item.className = "comment-item fade-in";
     const time = new Date().toLocaleTimeString('en-GB', {
@@ -148,7 +151,23 @@ form.appendChild(bubble);
       timeZone: 'UTC'
     });
     item.innerHTML = `<span class="comment-name">$ ${name}:</span> ${msg} <span class="comment-time">[${time}]</span>`;
-    commentList.insertBefore(item, commentList.firstChild);
+    commentList.appendChild(item); // GANTI dari insertBefore ke appendChild
+
+    // 2. Pesan bot "typing..." PALING BAWAH
+    const botItem = document.createElement("div");
+    botItem.className = "comment-item fade-in bot-reply";
+    botItem.innerHTML = `<span class="comment-name bot-name">🤖 speedbot:</span> <span class="bot-msg">Typing...</span>`;
+    commentList.appendChild(botItem); // GANTI dari insertBefore ke appendChild
+
+    // 3. Panggil handleMSG1 untuk reply
+    try {
+      const botReply = await handleMSG1(msg);
+      botItem.querySelector(".bot-msg").innerHTML = botReply.replace(/\n/g, "<br>");
+    } catch (err) {
+      botItem.querySelector(".bot-msg").textContent = "Sorry, I couldn't process that.";
+    }
+
+    // 4. Reset form & auto-scroll ke bawah
     form.reset();
     commentList.scrollTop = commentList.scrollHeight;
   }
@@ -213,6 +232,14 @@ form.appendChild(bubble);
       color: #888;
       font-size: 0.85em;
       margin-left: 0.5ch;
+    }
+    .bot-reply .bot-name {
+      color: #00ff99;
+      font-weight: bold;
+    }
+    .bot-reply {
+      background: #101d1a;
+      border-left: 2.5px solid #00ff99;
     }
   `;
   document.head.appendChild(style);
