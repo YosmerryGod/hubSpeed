@@ -1,4 +1,47 @@
-import { handleMSG1 } from '../func/handleExample.js'; // Pastikan path file sesuai
+import { handleMSG1 } from '../func/handleExample.js';
+
+function renderSVGIcon(label) {
+  switch (label.toLowerCase()) {
+    case "website":
+      return `<svg class="icon-svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="#00FF99" stroke-width="2.2" />
+        <path d="M2 12h20" stroke="#00FF99" stroke-width="2"/>
+        <path d="M12 2c2.8 3.5 2.8 16.5 0 20" stroke="#00FF99" stroke-width="2"/>
+        <path d="M12 2c-2.8 3.5-2.8 16.5 0 20" stroke="#00FF99" stroke-width="2"/>
+      </svg>`;
+    case "whitepaper":
+      return `<svg class="icon-svg" width="1.18em" height="1.18em" viewBox="0 0 24 24" fill="none">
+        <rect x="5" y="3" width="14" height="18" rx="2.2" stroke="#00FF99" stroke-width="2.2" fill="none"/>
+        <path d="M9 7h6M9 11h6M9 15h4" stroke="#00FF99" stroke-width="2"/>
+      </svg>`;
+    case "telegram group":
+      return `<svg class="icon-svg" width="1.13em" height="1.13em" viewBox="0 0 24 24" fill="none">
+        <path d="M21.8 5.2 12.1 20.3a1.1 1.1 0 0 1-2-.2l-2-5.4-5.4-2a1.1 1.1 0 0 1-.2-2l15.1-9.7a1.1 1.1 0 0 1 1.6 1.2z" stroke="#00FF99" stroke-width="2" fill="none"/>
+      </svg>`;
+    case "twitter":
+      return `<svg class="icon-svg" width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="none">
+        <path d="M23 3a10.9 10.9 0 0 1-3.1 1.1A4.48 4.48 0 0 0 22.4.4a9 9 0 0 1-2.9 1.1C17.3.6 16.3 0 15 0c-2.3 0-4.1 1.8-4.1 4.1 0 .3 0 .6.1.8C7.2 4.7 3.8 2.9 1.6.1a4 4 0 0 0-.6 2.1c0 1.4.7 2.7 1.8 3.5A4.15 4.15 0 0 1 .8 5v.1c0 2 1.4 3.6 3.2 4A4.42 4.42 0 0 1 1 8.6a4.47 4.47 0 0 0 4.1 3A9 9 0 0 1 0 20.4a12.73 12.73 0 0 0 6.9 2c8.3 0 12.8-6.9 12.8-12.8 0-.2 0-.3 0-.5A9.19 9.19 0 0 0 24 4.6c-.9.4-1.8.7-2.7.8z" stroke="#00FF99" stroke-width="1.5" fill="none"/>
+      </svg>`;
+    case "tiktok":
+      return `<svg class="icon-svg" width="1.13em" height="1.13em" viewBox="0 0 24 24" fill="none">
+        <path d="M9 22a5 5 0 1 1 0-10h1v2.5a2.5 2.5 0 1 0 2.5-2.5H15V7h2.5A5.5 5.5 0 1 1 22 12.5" stroke="#00FF99" stroke-width="2" fill="none"/>
+      </svg>`;
+    case "instagram":
+      return `<svg class="icon-svg" width="1.13em" height="1.13em" viewBox="0 0 24 24" fill="none">
+        <rect x="3.3" y="3.3" width="17.4" height="17.4" rx="4" stroke="#00FF99" stroke-width="2.1" fill="none"/>
+        <circle cx="12" cy="12" r="4" stroke="#00FF99" stroke-width="2"/>
+        <circle cx="17.2" cy="6.8" r="1.3" fill="#00FF99"/>
+      </svg>`;
+    case "youtube":
+      return `<svg class="icon-svg" width="1.18em" height="1.18em" viewBox="0 0 24 24" fill="none">
+        <rect x="2.5" y="6.5" width="19" height="11" rx="5" stroke="#00FF99" stroke-width="2"/>
+        <polygon points="10,9 16,12 10,15" fill="#00FF99"/>
+      </svg>`;
+    default:
+      return '';
+  }
+}
+
 
 function getResponsiveWidth() {
   return window.innerWidth < 700 ? "50dvw" : "35dvw";
@@ -42,6 +85,8 @@ export async function renderHero() {
     btn.href = url;
     btn.target = "_blank";
     btn.className = "link-button";
+
+     btn.innerHTML = renderSVGIcon(label);
 
     const span = document.createElement("span");
     span.className = "btn-text";
